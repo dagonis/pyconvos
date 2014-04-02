@@ -1,4 +1,3 @@
-__author__ = 'ktyers'
 import argparse
 import re
 import subprocess
@@ -65,7 +64,6 @@ def menu():
 parser = argparse.ArgumentParser()
 parser.add_argument("pcap", help="The PCAP file you want conversations from.")
 parser.add_argument("--protocol", "-p", choices=("udp", "tcp"), default="tcp", help="The protocol to follow, choose TCP or UDP. Default is TCP")
-parser.add_argument("--verbose", "-v", action='store_true', help="Verbose output.")
 args = parser.parse_args()
 assert input_validation(args.pcap), "This program only allows filenames with Alphanums and periods."
 t_command = "tshark -nqr {} -z conv,{}".format(args.pcap, args.protocol)
