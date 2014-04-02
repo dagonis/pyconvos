@@ -1,4 +1,4 @@
-pycapinfos_model
+pyconvos
 ================
 
 A Python (2.7.x) wrapper for Tshark that lists conversations (TCP by default) and presents you an interface to
