@@ -11,7 +11,7 @@ I do call out to Subprocess, but I try to verify the filename passed is really a
 
 Usage
 ----------------
-python pyconvos.py <file> -p (TCP|UDP)
+python pyconvos.py \<file\> -p (TCP|UDP)
 
 If you don't specify -p it is set to TCP by default.
 
