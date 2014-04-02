@@ -35,7 +35,7 @@ class Conversation(object):
 
 def input_validation(i):
     """Basic input validation."""
-    if re.findall(r'[^A-Za-z0-9.]',i):
+    if re.findall(r'[^A-Za-z0-9_.]',i):
         return False
     else:
         return True
@@ -70,7 +70,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("pcap", help="The PCAP file you want conversations from.")
 parser.add_argument("--protocol", "-p", choices=("udp", "tcp"), default="tcp", help="The protocol to follow, choose TCP or UDP. Default is TCP")
 args = parser.parse_args()
-assert input_validation(args.pcap), "This program only allows filenames with Alphanums and periods."
+assert input_validation(args.pcap), "This program only allows filenames with Alphanums, periods and underscores."
 t_command = "tshark -nqr {} -z conv,{}".format(args.pcap, args.protocol)
 process = subprocess.Popen(t_command, shell=True, stdout=subprocess.PIPE)
 out, err = process.communicate()
