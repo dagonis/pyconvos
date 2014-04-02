@@ -5,18 +5,21 @@ import sys
 
 
 class Conversation(object):
-    def __init__(self, id, src_ip, src_port, dst_ip, dst_port):
+    def __init__(self, id, src_ip, src_port, dst_ip, dst_port, tbytes, duration):
         self.id = id
         self.src_ip = src_ip
         self.src_port = src_port
         self.dst_ip = dst_ip
         self.dst_port = dst_port
+        self.tbytes = tbytes
+        self.duration = duration
 
     @classmethod
     def create(cls, c):
-        host_re = re.compile("((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):[0-9]{1,5})")
-        result = host_re.findall(c)
-        convo_dict = dict(id=i, src_ip=result[0].split(":")[0], src_port=result[0].split(":")[1], dst_ip=result[1].split(":")[0], dst_port=result[1].split(":")[1])
+        _c = [x for x in c.split(" ") if not x == '']
+        convo_dict = dict(id=i, src_ip=_c[0].split(":")[0], src_port=_c[0].split(":")[1],
+                          dst_ip=_c[2].split(":")[0], dst_port=_c[2].split(":")[1],
+                          tbytes=_c[8], duration=_c[10])
         return Conversation(**convo_dict)
 
     def follow(self):
@@ -26,7 +29,9 @@ class Conversation(object):
         return f_out
 
     def __str__(self):
-        return "{}) {}:{} -> {}:{}".format(self.id, self.src_ip, self.src_port, self.dst_ip, self.dst_port)
+        return "{}) {}:{} <-> {}:{} ({} Total bytes, Duration: {})".format(self.id, self.src_ip, self.src_port,
+                                                                          self.dst_ip, self.dst_port,
+                                                                          self.tbytes, self.duration)
 
 def input_validation(i):
     """Basic input validation."""
