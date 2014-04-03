@@ -19,7 +19,11 @@ class Conversation(object):
         _c = [x for x in c.split(" ") if not x == '']
         convo_dict = dict(id=i, src_ip=_c[0].split(":")[0], src_port=_c[0].split(":")[1],
                           dst_ip=_c[2].split(":")[0], dst_port=_c[2].split(":")[1],
-                          tbytes=_c[8], duration=_c[10])
+                          tbytes=_c[8])
+        try:
+            convo_dict['duration'] = _c[10]
+        except:
+            convo_dict['duration'] = "Unavailable"
         return Conversation(**convo_dict)
 
     def follow(self):
@@ -35,7 +39,7 @@ class Conversation(object):
 
 def input_validation(i):
     """Basic input validation."""
-    if re.findall(r'[^A-Za-z0-9_./]',i):
+    if re.findall(r'[^A-Za-z0-9_./~]',i):
         return False
     else:
         return True
