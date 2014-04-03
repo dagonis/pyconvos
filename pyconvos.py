@@ -35,7 +35,7 @@ class Conversation(object):
 
 def input_validation(i):
     """Basic input validation."""
-    if re.findall(r'[^A-Za-z0-9_.]',i):
+    if re.findall(r'[^A-Za-z0-9_./]',i):
         return False
     else:
         return True
